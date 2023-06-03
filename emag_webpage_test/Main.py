@@ -19,7 +19,10 @@ class Test(unittest.TestCase):
     CHOSE_MEMORY1 = (By.XPATH, '//*[@id="product_colors"]/li[1]/a/div')
     ADD_TO_CART = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
     CLOSE_WARANTY = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
-
+    CONTUL_MEU = (By.XPATH,'//*[@id="my_account"]/i')
+    ADRESA_EMAIL = (By.XPATH, '//*[@id="user_login_email"]')
+    BUTON_CONTINUE = (By.XPATH, '//*[@id="user_login_continue"]')
+    PAROLA_EMAIL = (By.XPATH, '//*[@id="user_login_email"]')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -41,6 +44,16 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.ADD_TO_CART).click()
         self.chrome.find_element(*self.CLOSE_WARANTY).click()
+
+    def test_log_in(self):
+        self.chrome.find_element(*self.CONTUL_MEU).click()
+        sleep(1)
+        self.chrome.find_element(*self.ADRESA_EMAIL).send_keys('cosminmoraru1996@gmail.com')
+        sleep(1)
+        self.chrome.find_element(*self.BUTON_CONTINUE).click()
+        sleep(1)
+
+
 
 
 
