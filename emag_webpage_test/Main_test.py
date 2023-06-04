@@ -23,6 +23,8 @@ class Test(unittest.TestCase):
     CONTINUE_FROM_CART = (By.XPATH, '//*[@class = " btn btn-emag btn-secondary font-size-md btn-block btn-lg gtm_sn11312018"]')
     INSERT_EMAIL = (By.XPATH, '//*[@name = "user_login[email]"]')
     CONTINUA = (By.XPATH, '//*[@id = "user_login_continue"]')
+    DELETE_ELEMENT = (By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div[1]/div[2]/div[2]/div[2]/button')
+    HOME = (By.XPATH, '//*[@id="masthead"]/div/div/div[1]/a/img')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -30,7 +32,7 @@ class Test(unittest.TestCase):
         self.chrome.get('https://www.emag.ro')
 
     def tearDown(self) -> None:
-        sleep(1000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -62,4 +64,8 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CONTINUA).click()
         sleep(5)
         self.chrome.back()
-
+        self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        sleep(1)
+        self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        sleep(1)
+        self.chrome.find_element(*self.HOME).click()
