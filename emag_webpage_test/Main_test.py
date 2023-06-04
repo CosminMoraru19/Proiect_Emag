@@ -21,6 +21,8 @@ class Test(unittest.TestCase):
     CLOSE_SUGGESTION2 = (By.XPATH, '//*[@class = "em em-close gtm_6046yfqs"]')
     CART = (By.XPATH, '//*[@id="my_cart"]/span[2]')
     CONTINUE_FROM_CART = (By.XPATH, '//*[@class = " btn btn-emag btn-secondary font-size-md btn-block btn-lg gtm_sn11312018"]')
+    INSERT_EMAIL = (By.XPATH, '//*[@name = "user_login[email]"]')
+    CONTINUA = (By.XPATH, '//*[@id = "user_login_continue"]')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -55,4 +57,9 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
         sleep(1)
+        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('cosminmoraru1996@gmail.com')
+        sleep(1)
+        self.chrome.find_element(*self.CONTINUA).click()
+        sleep(5)
+        self.chrome.back()
 
