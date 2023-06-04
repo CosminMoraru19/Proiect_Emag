@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         self.chrome.quit()
 
     def test_add_to_cart(self):
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
         sleep(3)
         self.chrome.find_element(*self.ACCEPT_COOKIES).click()
@@ -44,13 +44,3 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.ADD_TO_CART).click()
         self.chrome.find_element(*self.CLOSE_WARANTY).click()
-
-
-
-
-
-
-
-
-
-
