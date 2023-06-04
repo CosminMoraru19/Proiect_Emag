@@ -8,7 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from Initializa_pagina import Test
+
 
 
 class Test(unittest.TestCase):
@@ -16,13 +16,7 @@ class Test(unittest.TestCase):
     GO_TO_RESULT = (By.XPATH, '//*[@class="em em-search"]')
     ACCEPT_COOKIES = (By.XPATH, '//*[@class ="btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     PRODUCT = (By.XPATH, '//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
-    CHOSE_MEMORY1 = (By.XPATH, '//*[@id="product_colors"]/li[1]/a/div')
-    ADD_TO_CART = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
-    CLOSE_WARANTY = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
-    CONTUL_MEU = (By.XPATH,'//*[@id="my_account"]/i')
-    ADRESA_EMAIL = (By.XPATH, '//*[@id="user_login_email"]')
-    BUTON_CONTINUE = (By.XPATH, '//*[@id="user_login_continue"]')
-    PAROLA_EMAIL = (By.XPATH, '//*[@id="user_login_email"]')
+
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
