@@ -29,6 +29,10 @@ class Test(unittest.TestCase):
     ADD_TO_FAV2_FROM_LIST = (By.XPATH, '//*[@id="card_grid"]/div[1]/div/div/div[2]/button[1]/i')
     OPEN_FAV = (By.XPATH, '//*[@id="my_wishlist"]/span[1]')
     DELETE_ELEMENT_FAV = (By.XPATH, '//*[@class="hidden-sm hidden-xs gtm_9p2y1a"]')
+    CAT_LAP_TEL_TAB = (By.XPATH, '//*[@data-modified = "1681819469"]')
+    TEL = (By.XPATH, '//*[@id="emg-body-overlay"]/div[2]/div[2]/div/div[3]/aside/ul[1]/li[2]/a')
+    IOS = (By.XPATH, '//*[@id="emg-widget-carousel3014"]/div/div/figure[1]/div/a/img')
+
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -36,7 +40,7 @@ class Test(unittest.TestCase):
         self.chrome.get('https://www.emag.ro')
 
     def tearDown(self) -> None:
-        sleep(100)
+        sleep(10000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -74,7 +78,7 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
 
-    def test_add_to_favv(self):
+    def test_add_to_fav(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
         sleep(3)
@@ -98,3 +102,12 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
+
+    def search_for_a_product(self):
+        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+        sleep(1)
+        self.chrome.find_element(*self.TEL).click()
+        self.chrome.find_element(*self.IOS).click()
+
+
+
