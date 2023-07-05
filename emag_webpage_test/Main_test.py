@@ -40,7 +40,8 @@ class Test(unittest.TestCase):
     CLICK_TELEFON = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     ADD_TO_CART2 = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
     CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
-    CLOSE_COOKIE = (By.XPATH, '/html/body/div[8]/div/div[2]/button[1]')
+    CLOSE_COOKIE = (By.XPATH, '/html/body/div[13]/div/div[2]/button[1]')
+    CLOSE_INTRA_IN_CONT = (By.XPATH, '/html/body/div[13]/div/button/i')
 
 
     def setUp(self) -> None:
@@ -122,6 +123,8 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CLOSE_COOKIE).click()
         sleep(1)
+        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+        sleep(1)
         self.chrome.find_element(*self.LIVRATE_EMAG).click()
         sleep(1)
         self.chrome.find_element(*self.SECTOR).click()
@@ -142,7 +145,9 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         sleep(1)
+        self.chrome.find_element(*self.HOME).click()
 
+    def test_oferte_emag(self):
 
 
 
