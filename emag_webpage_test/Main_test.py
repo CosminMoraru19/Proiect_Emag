@@ -40,9 +40,13 @@ class Test(unittest.TestCase):
     CLICK_TELEFON = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     ADD_TO_CART2 = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
     CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
-    CLOSE_COOKIE = (By.XPATH, '/html/body/div[13]/div/div[2]/button[1]')
-    CLOSE_INTRA_IN_CONT = (By.XPATH, '/html/body/div[13]/div/button/i')
-
+    CLOSE_COOKIE = (By.XPATH, '//*[@class = "btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
+    CLOSE_INTRA_IN_CONT = (By.XPATH, '//*[@class = "js-dismiss-login-notice-btn dismiss-btn btn btn-link pad-sep-none pad-hrz-none"]')
+    OFERTE_EMAG = (By.XPATH, '//*[@title = "Ofertele eMAG"]')
+    HOME_DEALS = (By.XPATH, '//*[@src = "https://s13emagst.akamaized.net/layout/ro/images/db/104/156523.jpg?width=768&height=768&hash=DD6A30DBF728F09082F15DEABCDF0A6A"]')
+    PISCINE = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/layout/ro/images/db//104/156364.jpg"]')
+    RATEING =(By.XPATH, '//*[@data-option-id="5-5"]')
+    PISCINA = (By.XPATH, '//*[@alt="Piscina Bestway Steel Pro MAX, pompa filtrare, 4.27m x 84cm"]')
 
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
@@ -148,7 +152,33 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.HOME).click()
 
     def test_oferte_emag(self):
-
+        self.chrome.find_element(*self.OFERTE_EMAG).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_COOKIE).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+        sleep(1)
+        self.chrome.find_element(*self.HOME_DEALS).click()
+        sleep(1)
+        self.chrome.find_element(*self.PISCINE).click()
+        sleep(1)
+        self.chrome.find_element(*self.LIVRATE_EMAG).click()
+        sleep(1)
+        self.chrome.find_element(*self.IN_STOCK).click()
+        sleep(1)
+        self.chrome.find_element(*self.RATEING).click()
+        sleep(1)
+        self.chrome.find_element(*self.PISCINA).click()
+        sleep(1)
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        sleep(1)
+        self.chrome.find_element(*self.CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        sleep(1)
+        self.chrome.find_element(*self.HOME).click()
 
 
 
