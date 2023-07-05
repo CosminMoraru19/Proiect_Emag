@@ -32,6 +32,16 @@ class Test(unittest.TestCase):
     CAT_LAP_TEL_TAB = (By.XPATH, '//*[@data-modified = "1681819469"]')
     TEL = (By.XPATH, '//*[@id="emg-body-overlay"]/div[2]/div[2]/div/div[3]/aside/ul[1]/li[2]/a')
     IOS = (By.XPATH, '//*[@id="emg-widget-carousel3014"]/div/div/figure[1]/div/a/img')
+    LIVRATE_EMAG = (By.XPATH, '//*[@data-option-id="30"]')
+    SECTOR = (By.XPATH, '//*[@data-option-id= "11"]')
+    IN_STOCK = (By.XPATH, '//*[@data-option-id="stock"]')
+    RANGE_PRET = (By.XPATH, '//*[@data-option-id="4000-5000"]')
+    IPHONE_14 = (By.XPATH, '//*[@id="js-filter-9396-collapse"]/div/a[2]')
+    CLICK_TELEFON = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
+    ADD_TO_CART2 = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
+    CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
+    CLOSE_COOKIE = (By.XPATH, '/html/body/div[8]/div/div[2]/button[1]')
+
 
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
@@ -88,7 +98,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.ADD_TO_FAV1).click()
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" incarcator Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("incarcator Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
         sleep(1)
         self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
@@ -103,11 +113,42 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
 
-    def search_for_a_product(self):
+    def test_search_for_a_product(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
         sleep(1)
         self.chrome.find_element(*self.TEL).click()
+        sleep(1)
         self.chrome.find_element(*self.IOS).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_COOKIE).click()
+        sleep(1)
+        self.chrome.find_element(*self.LIVRATE_EMAG).click()
+        sleep(1)
+        self.chrome.find_element(*self.SECTOR).click()
+        sleep(1)
+        self.chrome.find_element(*self.IN_STOCK).click()
+        sleep(1)
+        self.chrome.find_element(*self.RANGE_PRET).click()
+        sleep(1)
+        self.chrome.find_element(*self.IPHONE_14).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLICK_TELEFON).click()
+        sleep(1)
+        self.chrome.find_element(*self.ADD_TO_CART2).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION3).click()
+        sleep(1)
+        self.chrome.find_element(*self.CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        sleep(1)
+
+
+
+
+
+
+
 
 
 
