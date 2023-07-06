@@ -47,7 +47,11 @@ class Test(unittest.TestCase):
     PISCINE = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/layout/ro/images/db//104/156364.jpg"]')
     RATEING =(By.XPATH, '//*[@data-option-id="5-5"]')
     PISCINA = (By.XPATH, '//*[@alt="Piscina Bestway Steel Pro MAX, pompa filtrare, 4.27m x 84cm"]')
-
+    RESIGILATE = (By.XPATH, '//*[@title="Resigilate"]')
+    TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
+    VEZI_TELEFOANE_RESIG = (By.XPATH, '//*[@href="https://www.emag.ro/resigilate/telefoane-mobile/c?ref=see-more_CMP-426208_8323_92538_campanie-produse-resigilate-ongoing"]')
+    IPHONE_RESIG = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591242/images/res_ee69b28e2cc930d3bbdd088baaa92556.jpg?width=720&height=720&hash=8F59C7C1A8EA7F5F409A0BBECC1D5196"]')
+    CUMPARA_RESIG = (By.XPATH, '//*[@id="panel-offer-819742219"]/div[1]/div/form/div/div[4]/button')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -179,6 +183,30 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
+
+    def test_resigilate(self):
+        self.chrome.find_element(*self.RESIGILATE).click()
+        sleep(1)
+        self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
+        sleep(1)
+        self.chrome.find_element(*self.VEZI_TELEFOANE_RESIG).click()
+        sleep(5)
+        self.chrome.find_element(*self.CLOSE_COOKIE).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+        sleep(1)
+        self.chrome.find_element(*self.LIVRATE_EMAG).click()
+        sleep(1)
+        self.chrome.find_element(*self.IPHONE_RESIG).click()
+        sleep(1)
+        self.chrome.find_element(*self.CUMPARA_RESIG).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        sleep(1)
+        self.chrome.find_element(*self.CART).click()
+
+
+
 
 
 
