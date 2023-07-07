@@ -217,7 +217,7 @@ class Test(unittest.TestCase):
             sleep(1)
             self.chrome.find_element(*self.GOTOMAG).click()
 
-    def test_pret(self):
+    def test_nume_telefon_corect(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
         sleep(1)
         self.chrome.find_element(*self.TEL).click()
