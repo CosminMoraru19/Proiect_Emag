@@ -242,13 +242,13 @@ class Test(unittest.TestCase):
             self.chrome.find_element(*self.CLOSE_ADD).click()
             sleep(1)
             self.chrome.find_element(*self.OPEN_APPLE_PRODUCT).click()
-            if ELEMENT2DECAUTAT in ELEMENT1.text:
-                print('Ai gasit telefonul dorint de tine')
-                self.chrome.find_element(*self.ADD_TO_CART).click()
-                sleep(1)
-                self.chrome.find_element(*self.HOME).click()
-            else:
-                print('Nu ai gasit telefonul dorit')
+        if ELEMENT2DECAUTAT in ELEMENT1.text:
+            print('Ai gasit telefonul dorint de tine')
+            self.chrome.find_element(*self.ADD_TO_CART).click()
+            sleep(1)
+            self.chrome.find_element(*self.HOME).click()
+        else:
+            print('Nu ai gasit telefonul dorit')
 
 
 
