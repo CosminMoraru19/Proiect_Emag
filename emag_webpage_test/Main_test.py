@@ -225,9 +225,9 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
         sleep(1)
         self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
-        ELEMENT1 = self.chrome.find_element(By.XPATH,'//*[@class="page-title"]')
-        ELEMENT2DECAUTAT = "Telefon mobil Apple iPhone 14 Pro, 128GB, 5G, Deep Purple"
-        if ELEMENT2DECAUTAT in ELEMENT1.text:
+        ELEMENT1 = self.chrome.find_element(By.XPATH,'//*[@class="page-title"]').text
+        ELEMENT2DECAUTAT = "Telefon mobil Apple iPhone 14 Pro, 128GB, 5G, Deep Purple   "
+        if ELEMENT2DECAUTAT in ELEMENT1:
             print('Ai gasit telefonul dorit')
             self.chrome.find_element(*self.ADD_TO_CART).click()
         else:
@@ -242,13 +242,14 @@ class Test(unittest.TestCase):
             self.chrome.find_element(*self.CLOSE_ADD).click()
             sleep(1)
             self.chrome.find_element(*self.OPEN_APPLE_PRODUCT).click()
-        if ELEMENT2DECAUTAT in ELEMENT1.text:
-            print('Ai gasit telefonul dorint de tine')
-            self.chrome.find_element(*self.ADD_TO_CART).click()
             sleep(1)
-            self.chrome.find_element(*self.HOME).click()
-        else:
-            print('Nu ai gasit telefonul dorit')
+            if ELEMENT2DECAUTAT in ELEMENT1:
+                print('Ai gasit telefonul dorint de tine')
+                self.chrome.find_element(*self.ADD_TO_CART).click()
+                sleep(1)
+                self.chrome.find_element(*self.HOME).click()
+            else:
+                print('Nu ai gasit telefonul dorit')
 
 
 
