@@ -49,9 +49,15 @@ class Test(unittest.TestCase):
     PISCINA = (By.XPATH, '//*[@alt="Piscina Bestway Steel Pro MAX, pompa filtrare, 4.27m x 84cm"]')
     RESIGILATE = (By.XPATH, '//*[@title="Resigilate"]')
     TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
-    VEZI_TELEFOANE_RESIG = (By.XPATH, '//*[@href="https://www.emag.ro/resigilate/telefoane-mobile/c?ref=see-more_CMP-426208_8323_92538_campanie-produse-resigilate-ongoing"]')
-    IPHONE_RESIG = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591242/images/res_ee69b28e2cc930d3bbdd088baaa92556.jpg?width=720&height=720&hash=8F59C7C1A8EA7F5F409A0BBECC1D5196"]')
-    CUMPARA_RESIG = (By.XPATH, '//*[@id="panel-offer-819742219"]/div[1]/div/form/div/div[4]/button')
+    TELEFON_SAMSUNG = (By.XPATH,'//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
+    ADD_SAM_CART = (By.XPATH,'//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
+    GOTOMAG = (By.XPATH,'//*[@id="cart-products"]/div/div[1]/div[3]/div/div/p/a')
+    TELEFOANE_MOBILE = (By.XPATH, '//*[@href="/telefoane-mobile/c?tree_ref=13&ref=cat_tree_93"]')
+    PRIMUL_TELEFOM = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/54129/54128719/images/res_1ead99862ad5ddaa2dd84e4bef27361f.jpg?width=720&height=720&hash=A195069FC7B4A97398EB1E46EFD2BC4E"]')
+    APPLE = (By.XPATH, '//*[@data-name="Apple"]')
+    CLOSE_ADD = (By.XPATH,'/html/body/div[1]/div/div/button/i')
+    OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
+
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -189,21 +195,65 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
         sleep(1)
-        self.chrome.find_element(*self.VEZI_TELEFOANE_RESIG).click()
-        sleep(5)
-        self.chrome.find_element(*self.CLOSE_COOKIE).click()
+        self.chrome.find_element(*self.TELEFON_SAMSUNG).click()
         sleep(1)
-        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
-        sleep(1)
-        self.chrome.find_element(*self.LIVRATE_EMAG).click()
-        sleep(1)
-        self.chrome.find_element(*self.IPHONE_RESIG).click()
-        sleep(1)
-        self.chrome.find_element(*self.CUMPARA_RESIG).click()
+        self.chrome.find_element(*self.ADD_SAM_CART).click()
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         sleep(1)
         self.chrome.find_element(*self.CART).click()
+        Element = self.chrome.find_element(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[1]/div[1]/div[2]/div[1]/div/a/span')
+        Element_cautat = 'RESIGILAT'
+        if Element_cautat in Element.text:
+            print('Telefonul este de la resigilate')
+            self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
+            self.chrome.find_element(*self.INSERT_EMAIL).send_keys("cosminmoraru1996@gmail.com")
+            self.chrome.find_element(*self.CONTINUA).click()
+            self.chrome.back()
+            self.chrome.find_element(*self.HOME).click()
+        else:
+            print('Telefonul nu este resigilat')
+            self.chrome.find_element(*self.DELETE_ELEMENT).click()
+            sleep(1)
+            self.chrome.find_element(*self.GOTOMAG).click()
+
+    def test_pret(self):
+        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+        sleep(1)
+        self.chrome.find_element(*self.TEL).click()
+        sleep(1)
+        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
+        sleep(1)
+        self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
+        ELEMENT1 = self.chrome.find_element(By.XPATH,'//*[@class="page-title"]')
+        ELEMENT2DECAUTAT = "Telefon mobil Apple iPhone 14 Pro, 128GB, 5G, Deep Purple"
+        if ELEMENT2DECAUTAT in ELEMENT1.text:
+            print('Ai gasit telefonul dorit')
+            self.chrome.find_element(*self.ADD_TO_CART).click()
+        else:
+            self.chrome.back()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_COOKIE).click()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+            sleep(1)
+            self.chrome.find_element(*self.APPLE).click()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_ADD).click()
+            sleep(1)
+            self.chrome.find_element(*self.OPEN_APPLE_PRODUCT).click()
+            if ELEMENT2DECAUTAT in ELEMENT1.text:
+                print('Ai gasit telefonul dorint de tine')
+                self.chrome.find_element(*self.ADD_TO_CART).click()
+                sleep(1)
+                self.chrome.find_element(*self.HOME).click()
+            else:
+                print('Nu ai gasit telefonul dorit')
+
+
+
+
+
 
 
 
