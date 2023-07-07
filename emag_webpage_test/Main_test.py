@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
     CLOSE_COOKIE = (By.XPATH, '//*[@class = "btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     CLOSE_INTRA_IN_CONT = (By.XPATH, '//*[@class = "js-dismiss-login-notice-btn dismiss-btn btn btn-link pad-sep-none pad-hrz-none"]')
     OFERTE_EMAG = (By.XPATH, '//*[@title = "Ofertele eMAG"]')
-    HOME_DEALS = (By.XPATH, '//*[@src = "https://s13emagst.akamaized.net/layout/ro/images/db/104/156523.jpg?width=768&height=768&hash=DD6A30DBF728F09082F15DEABCDF0A6A"]')
+    OFERTA_ZILEI = (By.XPATH, '//*[@src = "https://s13emagst.akamaized.net/layout/ro/images/db/106/158375.jpg?width=768&height=768&hash=D1B1774B731D85E7F42E7AB17A88F26D"]')
     PISCINE = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/layout/ro/images/db//104/156364.jpg"]')
     RATEING =(By.XPATH, '//*[@data-option-id="5-5"]')
     PISCINA = (By.XPATH, '//*[@alt="Piscina Bestway Steel Pro MAX, pompa filtrare, 4.27m x 84cm"]')
@@ -65,7 +65,7 @@ class Test(unittest.TestCase):
         self.chrome.get('https://www.emag.ro')
 
     def tearDown(self) -> None:
-        sleep(10000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -168,7 +168,7 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
         sleep(1)
-        self.chrome.find_element(*self.HOME_DEALS).click()
+        self.chrome.find_element(*self.OFERTA_ZILEI).click()
         sleep(1)
         self.chrome.find_element(*self.PISCINE).click()
         sleep(1)
