@@ -55,7 +55,7 @@ class Test(unittest.TestCase):
     TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
     HUSE_TELEFOANE = (By.XPATH,'//*[@href="/huse-telefoane/c?tree_ref=0&ref=cat_tree_2417"]')
     CAT_SAMSUNG = (By.XPATH,'//*[@href="https://www.emag.ro/huse-telefoane/filter/brand-compatibil-f7546,samsung-v-4050714/c?ref=lst_leftbar_7546_-4050714"]')
-    HUSA_SAMSUNG = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48254/48253800/images/res_009c894a768b2a3ba1b2e882c96b386c.png?width=720&height=720&hash=6729D464648E061ADDD5345A190C7A33"]')
+    HUSA_SAMSUNG = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/54483/54482332/images/res_39db6f3ab46b0b89771c75546874564b.jpg?width=720&height=720&hash=DC83F3EA34544200C3A654837D165F78"')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
