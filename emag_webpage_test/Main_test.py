@@ -53,9 +53,8 @@ class Test(unittest.TestCase):
     CLOSE_ADD = (By.XPATH,'/html/body/div[1]/div/div/button/i')
     OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
     TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
-    HUSE_TELEFOANE = (By.XPATH,'//*[@href="/huse-telefoane/c?tree_ref=0&ref=cat_tree_2417"]')
-    CAT_SAMSUNG = (By.XPATH,'//*[@href="https://www.emag.ro/huse-telefoane/filter/brand-compatibil-f7546,samsung-v-4050714/c?ref=lst_leftbar_7546_-4050714"]')
-    HUSA_SAMSUNG = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/54483/54482332/images/res_39db6f3ab46b0b89771c75546874564b.jpg?width=720&height=720&hash=DC83F3EA34544200C3A654837D165F78"')
+    BATERII = (By.XPATH,'//*[@href="/power-bank-telefoane/c?tree_ref=0&ref=cat_tree_2411"]')
+    BATERIE = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -240,10 +239,10 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CART).click()
         sleep(1)
-        PRET = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
-        PRET_CIFRE = PRET.strip('Lei')
+        PRET1 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
+        PRET_CIFRE = int(PRET1.strip('Lei'))
         print(PRET_CIFRE)
-        print(PRET)
+        print(PRET1)
         for PRET_CIFRE in range(1,1000):
             self.chrome.find_element(*self.HOME).click()
             sleep(1)
@@ -251,17 +250,9 @@ class Test(unittest.TestCase):
             sleep(3)
             self.chrome.find_element(*self.TELEFOANE_ACCESORII).click()
             sleep(3)
-            self.chrome.find_element(*self.HUSE_TELEFOANE).click()
+            self.chrome.find_element(*self.BATERII).click()
             sleep(3)
-            self.chrome.find_element(*self.CAT_SAMSUNG).click()
-            sleep(3)
-            self.chrome.find_element(*self.CLOSE_COOKIE).click()
-            sleep(3)
-            self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
-            sleep(3)
-            self.chrome.find_element(*self.CLOSE_ADD).click()
-            sleep(3)
-            self.chrome.find_element(*self.HUSA_SAMSUNG).click()
+            self.chrome.find_element(*self.BATERIE).click()
             sleep(3)
             self.chrome.find_element(*self.ADD_TO_CART).click()
             sleep(3)
@@ -269,9 +260,11 @@ class Test(unittest.TestCase):
             sleep(2)
             self.chrome.find_element(*self.CART).click()
             sleep(3)
-            PRET = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
-            PRET_CIFRE = PRET.strip('Lei')
-            print('Noul pret al cosului este de ',{PRET})
+            PRET2 = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
+            PRET2_SIMPLU = PRET2.strip('Lei')
+            DIFERENTA = int(PRET2_SIMPLU) - int(PRET_CIFRE)
+            print(DIFERENTA)
+            print('Noul pret al cosului este de ',{PRET2})
         else:
             print('Ai atins pretul maxim de 1000 de lei')
 
