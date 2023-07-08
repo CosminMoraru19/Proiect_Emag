@@ -42,11 +42,6 @@ class Test(unittest.TestCase):
     CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
     CLOSE_COOKIE = (By.XPATH, '//*[@class = "btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     CLOSE_INTRA_IN_CONT = (By.XPATH, '//*[@class = "js-dismiss-login-notice-btn dismiss-btn btn btn-link pad-sep-none pad-hrz-none"]')
-    OFERTE_EMAG = (By.XPATH, '//*[@title = "Ofertele eMAG"]')
-    OFERTA_ZILEI = (By.XPATH, '//*[@src = "https://s13emagst.akamaized.net/layout/ro/images/db/106/158375.jpg?width=768&height=768&hash=D1B1774B731D85E7F42E7AB17A88F26D"]')
-    PRIMA_OFERTA = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/layout/ro/images/db//104/156683.png"]')
-    RATEING =(By.XPATH, '//*[@data-option-id="5-5"]')
-    PISCINA = (By.XPATH, '//*[@alt="Piscina Bestway Steel Pro MAX, pompa filtrare, 4.27m x 84cm"]')
     RESIGILATE = (By.XPATH, '//*[@title="Resigilate"]')
     TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
     TELEFON_SAMSUNG = (By.XPATH,'//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
@@ -57,7 +52,10 @@ class Test(unittest.TestCase):
     APPLE = (By.XPATH, '//*[@data-name="Apple"]')
     CLOSE_ADD = (By.XPATH,'/html/body/div[1]/div/div/button/i')
     OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
-
+    TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
+    HUSE_TELEFOANE = (By.XPATH,'//*[@href="/huse-telefoane/c?tree_ref=0&ref=cat_tree_2417"]')
+    CAT_SAMSUNG = (By.XPATH,'//*[@href="https://www.emag.ro/huse-telefoane/filter/brand-compatibil-f7546,samsung-v-4050714/c?ref=lst_leftbar_7546_-4050714"]')
+    ADD_TO_CART3 = (By.XPATH,'//*[@id="card_grid"]/div[2]/div/div/div[4]/div[2]/form/button')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -65,7 +63,7 @@ class Test(unittest.TestCase):
         self.chrome.get('https://www.emag.ro')
 
     def tearDown(self) -> None:
-        sleep(5)
+        sleep(50000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -161,35 +159,6 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HOME).click()
 
-    def test_oferte_emag(self):
-        self.chrome.find_element(*self.OFERTE_EMAG).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_COOKIE).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
-        sleep(1)
-        self.chrome.find_element(*self.OFERTA_ZILEI).click()
-        sleep(1)
-        self.chrome.find_element(*self.PRIMA_OFERTA).click()
-        sleep(1)
-        self.chrome.find_element(*self.LIVRATE_EMAG).click()
-        sleep(1)
-        self.chrome.find_element(*self.IN_STOCK).click()
-        sleep(1)
-        self.chrome.find_element(*self.RATEING).click()
-        sleep(1)
-        self.chrome.find_element(*self.PISCINA).click()
-        sleep(1)
-        self.chrome.find_element(*self.ADD_TO_CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        sleep(1)
-        self.chrome.find_element(*self.CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        sleep(1)
-        self.chrome.find_element(*self.HOME).click()
-
     def test_resigilate(self):
         self.chrome.find_element(*self.RESIGILATE).click()
         sleep(1)
@@ -256,10 +225,50 @@ class Test(unittest.TestCase):
             else:
                 print('Nu ai gasit telefonul dorit')
 
-
-
-
-
+    def test_cos_cumparatur_2000(self):
+        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+        sleep(1)
+        self.chrome.find_element(*self.TEL).click()
+        sleep(1)
+        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
+        sleep(1)
+        self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
+        sleep(1)
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        sleep(1)
+        self.chrome.find_element(*self.CART).click()
+        sleep(1)
+        PRET = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
+        PRET_CIFRE = PRET.strip('Lei')
+        print(PRET_CIFRE)
+        print(PRET)
+        for PRET_CIFRE in range(1,1000):
+            self.chrome.find_element(*self.HOME).click()
+            sleep(1)
+            self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+            sleep(1)
+            self.chrome.find_element(*self.TELEFOANE_ACCESORII).click()
+            sleep(1)
+            self.chrome.find_element(*self.HUSE_TELEFOANE).click()
+            sleep(1)
+            self.chrome.find_element(*self.CAT_SAMSUNG).click()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_COOKIE).click()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+            sleep(1)
+            self.chrome.find_element(*self.CLOSE_ADD).click()
+            sleep(1)
+            self.chrome.find_element(*self.ADD_TO_CART3).click()
+            sleep(1)
+            self.chrome.find_element(*self.CART).click()
+            sleep(1)
+            PRET = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
+            PRET_CIFRE = PRET.strip('Lei')
+            print('Noul pret al cosului este de ',{PRET})
+            print(PRET_CIFRE)
 
 
 
