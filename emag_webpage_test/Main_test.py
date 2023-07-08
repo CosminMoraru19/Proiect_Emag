@@ -268,10 +268,10 @@ class Test(unittest.TestCase):
             print(f'Noul pret al cosului este de {PRET2}')
         else:
             print('Ai atins pretul maxim de 1000 de lei, sterge un produs din cos')
-            self.chrome.find_element(*self.MINUS).click()
+            # self.chrome.find_element(*self.MINUS).click()
             sleep(3)
             PRET3 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
-            print(f'Pretul final al cosului este {PRET3}. Cosntinua catre plata')
+            print(f'Pretul final al cosului este {PRET3}. Continua catre plata')
             sleep(1)
             self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
             sleep(1)
