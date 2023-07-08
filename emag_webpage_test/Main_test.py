@@ -55,6 +55,7 @@ class Test(unittest.TestCase):
     TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
     BATERII = (By.XPATH,'//*[@href="/power-bank-telefoane/c?tree_ref=0&ref=cat_tree_2411"]')
     BATERIE = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
+    MINUS =(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[2]/div[1]/div[1]/div/button[1]/i')
     def setUp(self) -> None:
         s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome(service=s)
@@ -240,10 +241,10 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CART).click()
         sleep(1)
         PRET1 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
-        PRET_CIFRE = int(PRET1.strip('Lei'))
+        PRET_CIFRE = int(PRET1[:-7])
         print(PRET_CIFRE)
         print(PRET1)
-        for PRET_CIFRE in range(1,1000):
+        while PRET_CIFRE < 1000:
             self.chrome.find_element(*self.HOME).click()
             sleep(1)
             self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
@@ -261,12 +262,23 @@ class Test(unittest.TestCase):
             self.chrome.find_element(*self.CART).click()
             sleep(3)
             PRET2 = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
-            PRET2_SIMPLU = PRET2.strip('Lei')
-            DIFERENTA = int(PRET2_SIMPLU) - int(PRET_CIFRE)
-            print(DIFERENTA)
-            print('Noul pret al cosului este de ',{PRET2})
+            PRET_CIFRE = PRET2[:-7]
+            PRET_CIFRE = int(PRET_CIFRE.replace(".",""))
+            print(PRET_CIFRE)
+            print(f'Noul pret al cosului este de {PRET2}')
         else:
-            print('Ai atins pretul maxim de 1000 de lei')
+            print('Ai atins pretul maxim de 1000 de lei, sterge un produs din cos')
+            self.chrome.find_element(*self.MINUS).click()
+            sleep(3)
+            PRET3 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
+            print(f'Pretul final al cosului este {PRET3}. Cosntinua catre plata')
+            sleep(1)
+            self.chrome.find_element(*self.CONTINUA).click()
+            sleep(1)
+            self.chrome.back()
+            self.chrome.find_element(*self.HOME).click()
+
+
 
 
 
