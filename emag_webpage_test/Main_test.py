@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         self.chrome.get('https://www.emag.ro')
 
     def tearDown(self) -> None:
-        sleep(50000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -273,7 +273,7 @@ class Test(unittest.TestCase):
             PRET3 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
             print(f'Pretul final al cosului este {PRET3}. Cosntinua catre plata')
             sleep(1)
-            self.chrome.find_element(*self.CONTINUA).click()
+            self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
             sleep(1)
             self.chrome.back()
             self.chrome.find_element(*self.HOME).click()
