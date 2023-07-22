@@ -86,7 +86,6 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         self.chrome.find_element(*self.HOME).click()
 
-
     def test_login(self):
         self.chrome.find_element(*self.CONTUL_MEU).click()
         self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345@gmail.com')
@@ -130,6 +129,17 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         self.chrome.find_element(*self.HOME).click()
 
+    def test_check_cart_price(self):
+        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+        self.chrome.find_element(*self.TEL).click()
+        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
+        self.chrome.find_element(*self.ADD_TO_CART3).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        PRET_TOTAL = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
+        print(f'Pretul total al cosului este {PRET_TOTAL}')
+        self.chrome.find_element(*self.HOME).click()
     def test_resigilate(self):
         self.chrome.find_element(*self.RESIGILATE).click()
         self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
@@ -138,7 +148,7 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
-        Element = self.chrome.find_element(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[1]/div[1]/div[2]/div[1]/div/a/span')
+        Element = self.chrome.find_element(By.XPATH, '//*[@class="line-item-title main-product-title"]')
         Element_cautat = 'RESIGILAT'
         if Element_cautat in Element.text:
             print('Telefonul este de la resigilate')
