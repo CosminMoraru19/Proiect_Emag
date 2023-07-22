@@ -7,7 +7,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 
@@ -27,7 +26,7 @@ class Test(unittest.TestCase):
     HOME = (By.XPATH, '//*[@id="masthead"]/div/div/div[1]/a/img')
     ADD_TO_FAV1 = (By.XPATH, '//*[@id="main-container"]/section[3]/div/div[1]/div[2]/div/div[2]/div[2]/form/div/div[2]/div[1]/div[3]/button/span')
     ADD_TO_FAV2_FROM_LIST = (By.XPATH, '//*[@id="card_grid"]/div[1]/div/div/div[2]/button[1]/i')
-    OPEN_FAV = (By.XPATH, '//*[@id="my_wishlist"]/span[1]')
+    OPEN_FAV = (By.XPATH, '//*[@class="jewel jewel-danger"]')
     DELETE_ELEMENT_FAV = (By.XPATH, '//*[@class="hidden-sm hidden-xs gtm_9p2y1a"]')
     CAT_LAP_TEL_TAB = (By.XPATH, '//*[@data-modified = "1681819469"]')
     TEL = (By.XPATH, '//*[@id="emg-body-overlay"]/div[2]/div[2]/div/div[3]/aside/ul[1]/li[2]/a')
@@ -56,75 +55,71 @@ class Test(unittest.TestCase):
     BATERII = (By.XPATH,'//*[@href="/power-bank-telefoane/c?tree_ref=0&ref=cat_tree_2411"]')
     BATERIE = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     MINUS =(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[2]/div[1]/div[1]/div/button[1]/i')
-    def setUp(self) -> None:
-        s = Service(ChromeDriverManager().install())
-        self.chrome = webdriver.Chrome(service=s)
+    CONTUL_MEU = (By.XPATH, '//*[@id="my_account"]')
+    OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
+    def setUp(self):
+        # s = Service(ChromeDriverManager().install())
+        self.chrome = webdriver.Chrome()
         self.chrome.maximize_window()
         self.chrome.get('https://www.emag.ro')
+        sleep(3)
+        self.chrome.find_element(*self.ACCEPT_COOKIES).click()
+        sleep(3)
+        self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
+        sleep(3)
 
-    def tearDown(self) -> None:
-        sleep(5)
+    def tearDown(self):
+        sleep(10000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
-        sleep(3)
-        self.chrome.find_element(*self.ACCEPT_COOKIES).click()
         self.chrome.find_element(*self.PRODUCT).click()
-        sleep(3)
         self.chrome.find_element(*self.ADD_TO_CART).click()
-        sleep(3)
+        sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        sleep(1)
         self.chrome.find_element(*self.CART).click()
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" incarcator Iphone 14 Pro")
-        self.chrome.find_element(*self.GO_TO_RESULT).click()
-        sleep(3)
-        self.chrome.find_element(*self.PRODUCT).click()
-        self.chrome.find_element(*self.ADD_TO_CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION2).click()
-        sleep(1)
-        self.chrome.find_element(*self.CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('cosminmoraru1996@gmail.com')
-        sleep(1)
-        self.chrome.find_element(*self.CONTINUA).click()
-        sleep(5)
-        self.chrome.back()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        sleep(1)
-        self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        sleep(1)
         self.chrome.find_element(*self.HOME).click()
 
-    def test_add_to_fav(self):
+    def test_login(self):
+        self.chrome.find_element(*self.CONTUL_MEU).click()
+        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345@gmail.com')
+        self.chrome.find_element(*self.CONTINUA).click()
+        self.chrome.find_element(*self.OMITE_LOGIN).click()
+        self.chrome.find_element(*self.OMITE_LOGIN).click()
+        self.chrome.find_element(*self.OMITE_LOGIN).click()
+        self.chrome.back()
+
+    def test_add_to_fav1(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
-        sleep(3)
+        sleep(1)
         self.chrome.find_element(*self.ACCEPT_COOKIES).click()
         self.chrome.find_element(*self.PRODUCT).click()
-        sleep(1)
+        # sleep(1)
         self.chrome.find_element(*self.ADD_TO_FAV1).click()
         sleep(1)
-        self.chrome.find_element(*self.HOME).click()
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys("incarcator Iphone 14 Pro")
-        self.chrome.find_element(*self.GO_TO_RESULT).click()
-        sleep(1)
-        self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
-        sleep(1)
-        self.chrome.find_element(*self.HOME).click()
-        sleep(1)
+        # self.chrome.find_element(*self.HOME).click()
+        # self.chrome.find_element(*self.SEARCH_BAR).send_keys("incarcator Iphone 14 Pro")
+        # self.chrome.find_element(*self.GO_TO_RESULT).click()
+        # sleep(1)
+        # self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
+        # sleep(1)
+        # self.chrome.find_element(*self.HOME).click()
+        # sleep(1)
         self.chrome.find_element(*self.OPEN_FAV).click()
-        sleep(2)
+        # sleep(2)
+        # self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
+        # sleep(2)
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
-        sleep(2)
-        self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
-        sleep(1)
+        # sleep(1)
         self.chrome.find_element(*self.HOME).click()
+
+    def test_add_to_fav2(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.GO_TO_RESULT).click()
 
     def test_search_for_a_product(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
