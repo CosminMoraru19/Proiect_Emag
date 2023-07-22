@@ -17,7 +17,6 @@ class Test(unittest.TestCase):
     PRODUCT = (By.XPATH, '//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     ADD_TO_CART = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
     CLOSE_SUGGESTION = (By.XPATH, '//*[@class = "em em-close gtm_6046yfqs"]')
-    CLOSE_SUGGESTION2 = (By.XPATH, '//*[@class = "em em-close gtm_6046yfqs"]')
     CART = (By.XPATH, '//*[@id="my_cart"]/span[2]')
     CONTINUE_FROM_CART = (By.XPATH, '//*[@class = " btn btn-emag btn-secondary font-size-md btn-block btn-lg gtm_sn11312018"]')
     INSERT_EMAIL = (By.XPATH, '//*[@name = "user_login[email]"]')
@@ -47,7 +46,7 @@ class Test(unittest.TestCase):
     ADD_SAM_CART = (By.XPATH,'//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
     GOTOMAG = (By.XPATH,'//*[@id="cart-products"]/div/div[1]/div[3]/div/div/p/a')
     TELEFOANE_MOBILE = (By.XPATH, '//*[@href="/telefoane-mobile/c?tree_ref=13&ref=cat_tree_93"]')
-    PRIMUL_TELEFOM = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/54129/54128719/images/res_1ead99862ad5ddaa2dd84e4bef27361f.jpg?width=720&height=720&hash=A195069FC7B4A97398EB1E46EFD2BC4E"]')
+    PRIMUL_TELEFOM = (By.XPATH,'//*[@alt="Telefon mobil Samsung Galaxy A14, Dual SIM, 4GB RAM, 64GB, 4G, Light Green"]')
     APPLE = (By.XPATH, '//*[@data-name="Apple"]')
     CLOSE_ADD = (By.XPATH,'/html/body/div[1]/div/div/button/i')
     OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
@@ -57,6 +56,7 @@ class Test(unittest.TestCase):
     MINUS =(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[2]/div[1]/div[1]/div/button[1]/i')
     CONTUL_MEU = (By.XPATH, '//*[@id="my_account"]')
     OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
+    GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome()
@@ -69,7 +69,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5)
+        sleep(500)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -127,22 +127,18 @@ class Test(unittest.TestCase):
 
     def test_resigilate(self):
         self.chrome.find_element(*self.RESIGILATE).click()
-        sleep(1)
         self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
-        sleep(1)
         self.chrome.find_element(*self.TELEFON_SAMSUNG).click()
-        sleep(1)
         self.chrome.find_element(*self.ADD_SAM_CART).click()
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        sleep(1)
         self.chrome.find_element(*self.CART).click()
         Element = self.chrome.find_element(By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[1]/div[1]/div[2]/div[1]/div/a/span')
         Element_cautat = 'RESIGILAT'
         if Element_cautat in Element.text:
             print('Telefonul este de la resigilate')
             self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
-            self.chrome.find_element(*self.INSERT_EMAIL).send_keys("cosminmoraru1996@gmail.com")
+            self.chrome.find_element(*self.INSERT_EMAIL).send_keys("test_selenium12345@gmail.com")
             self.chrome.find_element(*self.CONTINUA).click()
             self.chrome.back()
             self.chrome.find_element(*self.HOME).click()
@@ -154,11 +150,8 @@ class Test(unittest.TestCase):
 
     def test_nume_telefon_corect(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        sleep(1)
         self.chrome.find_element(*self.TEL).click()
-        sleep(1)
         self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        sleep(1)
         self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
         ELEMENT1 = self.chrome.find_element(By.XPATH,'//*[@class="page-title"]').text
         print(ELEMENT1)
@@ -168,17 +161,12 @@ class Test(unittest.TestCase):
             self.chrome.find_element(*self.ADD_TO_CART).click()
         else:
             self.chrome.back()
+            self.chrome.back()
+            self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
             sleep(1)
-            self.chrome.find_element(*self.CLOSE_COOKIE).click()
-            sleep(1)
-            self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
-            sleep(1)
+            self.chrome.find_element(*self.GIFT_CLOSE).click()
             self.chrome.find_element(*self.APPLE).click()
-            sleep(1)
-            self.chrome.find_element(*self.CLOSE_ADD).click()
-            sleep(1)
             self.chrome.find_element(*self.OPEN_APPLE_PRODUCT).click()
-            sleep(1)
             ELEMENT2 = self.chrome.find_element(By.XPATH, "//*[@class='page-title']").text
             print(ELEMENT2)
             if ELEMENT2DECAUTAT in ELEMENT2:
@@ -186,62 +174,42 @@ class Test(unittest.TestCase):
                 self.chrome.find_element(*self.ADD_TO_CART).click()
                 sleep(1)
                 self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-                sleep(1)
                 self.chrome.find_element(*self.HOME).click()
             else:
                 print('Nu ai gasit telefonul dorit')
 
     def test_cos_cumparatur_2000(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        sleep(1)
         self.chrome.find_element(*self.TEL).click()
-        sleep(1)
         self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        sleep(1)
         self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
-        sleep(1)
         self.chrome.find_element(*self.ADD_TO_CART).click()
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        sleep(1)
         self.chrome.find_element(*self.CART).click()
-        sleep(1)
         PRET1 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
         PRET_CIFRE = int(PRET1[:-7])
         print(PRET_CIFRE)
         print(PRET1)
         while PRET_CIFRE < 1000:
             self.chrome.find_element(*self.HOME).click()
-            sleep(1)
             self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-            sleep(3)
             self.chrome.find_element(*self.TELEFOANE_ACCESORII).click()
-            sleep(3)
             self.chrome.find_element(*self.BATERII).click()
-            sleep(3)
             self.chrome.find_element(*self.BATERIE).click()
-            sleep(3)
             self.chrome.find_element(*self.ADD_TO_CART).click()
-            sleep(3)
+            sleep(1)
             self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-            sleep(2)
             self.chrome.find_element(*self.CART).click()
-            sleep(3)
             PRET2 = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
             PRET_CIFRE = PRET2[:-7]
             PRET_CIFRE = int(PRET_CIFRE.replace(".",""))
             print(PRET_CIFRE)
             print(f'Noul pret al cosului este de {PRET2}')
         else:
-            print('Ai atins pretul maxim de 1000 de lei, sterge un produs din cos')
-            # self.chrome.find_element(*self.MINUS).click()
-            sleep(3)
+            print('Ai depasit pretul maxim de 1000 de lei, sterge un produs din cos')
             PRET3 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
             print(f'Pretul final al cosului este {PRET3}. Continua catre plata')
-            sleep(1)
-            self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
-            sleep(1)
-            self.chrome.back()
             self.chrome.find_element(*self.HOME).click()
 
 
