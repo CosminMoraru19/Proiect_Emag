@@ -55,6 +55,7 @@ class Test(unittest.TestCase):
     CONTUL_MEU = (By.XPATH, '//*[@id="my_account"]')
     OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
+    ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome()
@@ -67,7 +68,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5)
+        sleep(5000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -80,6 +81,18 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         self.chrome.find_element(*self.HOME).click()
+
+    def test_add_to_cart2(self):
+        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
+        self.chrome.find_element(*self.TEL).click()
+        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
+        self.chrome.find_element(*self.ADD_TO_CART3).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        self.chrome.find_element(*self.HOME).click()
+
 
     def test_login(self):
         self.chrome.find_element(*self.CONTUL_MEU).click()
@@ -106,6 +119,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.OPEN_FAV).click()
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
         self.chrome.find_element(*self.HOME).click()
+
     def test_search_for_a_product(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
         self.chrome.find_element(*self.TEL).click()
