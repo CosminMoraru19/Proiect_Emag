@@ -62,14 +62,14 @@ class Test(unittest.TestCase):
         self.chrome = webdriver.Chrome()
         self.chrome.maximize_window()
         self.chrome.get('https://www.emag.ro')
-        sleep(3)
+        sleep(1)
         self.chrome.find_element(*self.ACCEPT_COOKIES).click()
-        sleep(3)
+        sleep(1)
         self.chrome.find_element(*self.CLOSE_INTRA_IN_CONT).click()
-        sleep(3)
+        sleep(1)
 
     def tearDown(self):
-        sleep(10000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -95,22 +95,9 @@ class Test(unittest.TestCase):
     def test_add_to_fav1(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
-        sleep(1)
-        # self.chrome.find_element(*self.ACCEPT_COOKIES).click()
         self.chrome.find_element(*self.PRODUCT).click()
-        # sleep(1)
         self.chrome.find_element(*self.ADD_TO_FAV1).click()
-        sleep(1)
-        # self.chrome.find_element(*self.HOME).click()
-        # self.chrome.find_element(*self.SEARCH_BAR).send_keys("incarcator Iphone 14 Pro")
-        # self.chrome.find_element(*self.GO_TO_RESULT).click()
-        # sleep(1)
-        # self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
-        # sleep(1)
-        # self.chrome.find_element(*self.HOME).click()
-        # sleep(1)
         self.chrome.find_element(*self.OPEN_FAV).click()
-
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
         self.chrome.find_element(*self.HOME).click()
 
@@ -118,8 +105,6 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.GO_TO_RESULT).click()
         self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
-        # self.chrome.find_element(*self.HOME).click()
-        # sleep(1)
         self.chrome.find_element(*self.OPEN_FAV).click()
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
         self.chrome.find_element(*self.HOME).click()
