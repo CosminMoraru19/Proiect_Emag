@@ -1,14 +1,7 @@
 import unittest
 from time import sleep
-from unittest import TestCase
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
-
 
 class Test(unittest.TestCase):
     SEARCH_BAR =(By.ID, 'searchboxTrigger')
@@ -68,7 +61,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
