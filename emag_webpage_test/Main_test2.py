@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 
 class Test(unittest.TestCase):
     SEARCH_BAR =(By.ID, 'searchboxTrigger')
-    GO_TO_RESULT = (By.XPATH, '//*[@class="em em-search"]')
+    SEARCH_BUTTON = (By.XPATH, '//*[@class="em em-search"]')
     ACCEPT_COOKIES = (By.XPATH, '//*[@class ="btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     PRODUCT = (By.XPATH, '//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     ADD_TO_CART = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
@@ -49,6 +49,8 @@ class Test(unittest.TestCase):
     OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
     ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
+    PRODUCT_COUNT_FROM_CART = (By.XPATH,'//*[@id="my_cart"]//span[@class="jewel jewel-danger"]')
+    PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome()
@@ -61,58 +63,91 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
-        self.chrome.find_element(*self.GO_TO_RESULT).click()
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
+        self.chrome.find_element(*self.PRODUCT).click()
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        self.chrome.find_element(*self.HOME).click()
+        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
+        print(number_of_products_in_cart)
+        assert number_of_products_in_cart == "1","Error: The product was not added to cart"
+
+
+    def test_delete_product_from_cart(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
         self.chrome.find_element(*self.PRODUCT).click()
         self.chrome.find_element(*self.ADD_TO_CART).click()
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        self.chrome.find_element(*self.HOME).click()
+        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
+        print(number_of_products_in_cart)
+        assert number_of_products_in_cart == 0 , "Error: The product was not removed from the cart"
 
-    def test_add_to_cart2(self):
-        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        self.chrome.find_element(*self.TEL).click()
-        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        self.chrome.find_element(*self.ADD_TO_CART3).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        self.chrome.find_element(*self.CART).click()
-        self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        self.chrome.find_element(*self.HOME).click()
 
-    def test_login(self):
+    def test_login_invalid_email(self):
         self.chrome.find_element(*self.CONTUL_MEU).click()
-        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345@gmail.com')
+        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345')
         self.chrome.find_element(*self.CONTINUA).click()
-        self.chrome.find_element(*self.OMITE_LOGIN).click()
-        self.chrome.find_element(*self.OMITE_LOGIN).click()
-        self.chrome.find_element(*self.OMITE_LOGIN).click()
-        self.chrome.back()
 
-    def test_add_to_fav1(self):
-        self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
-        self.chrome.find_element(*self.GO_TO_RESULT).click()
+        # pui un mail fara @ si verifici mesajul de eroare
+
+
+    def test_add_to_favourites(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
         self.chrome.find_element(*self.PRODUCT).click()
         self.chrome.find_element(*self.ADD_TO_FAV1).click()
         self.chrome.find_element(*self.OPEN_FAV).click()
-        self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
-        self.chrome.find_element(*self.HOME).click()
+        numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
+        print(numbers_of_products_in_favorites)
+        assert numbers_of_products_in_favorites == "1 produs", "Error: The product was not removed from the favorites"
 
-    def test_add_to_fav2(self):
+    def test_delete_from_favourites(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
-        self.chrome.find_element(*self.GO_TO_RESULT).click()
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
         self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
         self.chrome.find_element(*self.OPEN_FAV).click()
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
-        self.chrome.find_element(*self.HOME).click()
 
-    def test_search_for_a_product(self):
+# Sa inlocuiesti sleep-urile cu explicit wait
+
+
+    # abonare la newsletter
+    # - nume si email valid
+    # - nume empty, mail valid
+    # - nume empty, mail invalid
+    # - nume valid, mail invalid
+
+    # cautare produs husa iphone 15
+    # filtrare dupa brand honor
+    # sortare dupa pret crescator
+    # salvare elemente in lista si verificare corectitudine sortare
+
+    # salvezi xpath pret produs: self.chrome.find_element(By.XPATH,'//p[@class="product-new-price"]').text
+    #  -> 7 81 Lei
+    # -> aplici metoda replace pe textul care ti-a fost returnat pentru a extrage doar valoarea care te intereseaza
+    # exemplu: inlocuiesti " Lei" cu "" apoi inlocuiesti " " cu "." -> 7.81
+    # cu un for imbricat  parcurgi toate elementele
+    # //div[@class="listing-sorting-dropdown"]
+    # //div[@class="sort-control-btn-dropdown hidden-xs"]
+    # este_lista_sortata = True
+    # for i in range(len(pret_produse)-1):
+    #     for j in range(i+1,len(pret_produse)):
+    #         if pret_produse[i]>pret_produse[j]:
+    #             este_lista_sortata = False
+    # assert este_lista_sortata == True
+
+    def test_choose_product_from_menu(self):
         self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
         self.chrome.find_element(*self.TEL).click()
         self.chrome.find_element(*self.IOS).click()
@@ -129,17 +164,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         self.chrome.find_element(*self.HOME).click()
 
-    def test_check_cart_price(self):
-        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        self.chrome.find_element(*self.TEL).click()
-        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        self.chrome.find_element(*self.ADD_TO_CART3).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        self.chrome.find_element(*self.CART).click()
-        PRET_TOTAL = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
-        print(f'Pretul total al cosului este {PRET_TOTAL}')
-        self.chrome.find_element(*self.HOME).click()
+
     def test_resigilate(self):
         self.chrome.find_element(*self.RESIGILATE).click()
         self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
@@ -162,80 +187,6 @@ class Test(unittest.TestCase):
             self.chrome.find_element(*self.DELETE_ELEMENT).click()
             sleep(1)
             self.chrome.find_element(*self.GOTOMAG).click()
-
-    def test_nume_telefon_corect(self):
-        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        self.chrome.find_element(*self.TEL).click()
-        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
-        ELEMENT1 = self.chrome.find_element(By.XPATH,'//*[@class="page-title"]').text
-        print(ELEMENT1)
-        ELEMENT2DECAUTAT = "Telefon mobil Apple iPhone 14 Pro, 128GB, 5G, Deep Purple"
-        if ELEMENT2DECAUTAT in ELEMENT1:
-            print('Ai gasit telefonul dorit')
-            self.chrome.find_element(*self.ADD_TO_CART).click()
-        else:
-            self.chrome.back()
-            self.chrome.back()
-            self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-            sleep(1)
-            self.chrome.find_element(*self.GIFT_CLOSE).click()
-            self.chrome.find_element(*self.APPLE).click()
-            self.chrome.find_element(*self.OPEN_APPLE_PRODUCT).click()
-            ELEMENT2 = self.chrome.find_element(By.XPATH, "//*[@class='page-title']").text
-            print(ELEMENT2)
-            if ELEMENT2DECAUTAT in ELEMENT2:
-                print('Ai gasit telefonul dorint de tine')
-                self.chrome.find_element(*self.ADD_TO_CART).click()
-                sleep(1)
-                self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-                self.chrome.find_element(*self.HOME).click()
-            else:
-                print('Nu ai gasit telefonul dorit')
-
-    def test_cos_cumparatur_2000(self):
-        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        self.chrome.find_element(*self.TEL).click()
-        self.chrome.find_element(*self.TELEFOANE_MOBILE).click()
-        self.chrome.find_element(*self.PRIMUL_TELEFOM).click()
-        self.chrome.find_element(*self.ADD_TO_CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        self.chrome.find_element(*self.CART).click()
-        PRET1 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
-        PRET_CIFRE = int(PRET1[:-7])
-        print(PRET_CIFRE)
-        print(PRET1)
-        while PRET_CIFRE < 1000:
-            self.chrome.find_element(*self.HOME).click()
-            self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-            self.chrome.find_element(*self.TELEFOANE_ACCESORII).click()
-            self.chrome.find_element(*self.BATERII).click()
-            self.chrome.find_element(*self.BATERIE).click()
-            self.chrome.find_element(*self.ADD_TO_CART).click()
-            sleep(1)
-            self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-            self.chrome.find_element(*self.CART).click()
-            PRET2 = self.chrome.find_element(By.XPATH, '//*[@class="price order-summary-total-price"]').text
-            PRET_CIFRE = PRET2[:-7]
-            PRET_CIFRE = int(PRET_CIFRE.replace(".",""))
-            print(PRET_CIFRE)
-            print(f'Noul pret al cosului este de {PRET2}')
-        else:
-            print('Ai depasit pretul maxim de 1000 de lei, sterge un produs din cos')
-            PRET3 = self.chrome.find_element(By.XPATH,'//*[@class="price order-summary-total-price"]').text
-            print(f'Pretul final al cosului este {PRET3}. Continua catre plata')
-            self.chrome.find_element(*self.HOME).click()
-
-
-
-
-
-
-
-
-
-
 
 
 
