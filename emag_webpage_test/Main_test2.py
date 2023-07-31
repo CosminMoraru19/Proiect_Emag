@@ -50,8 +50,15 @@ class Test(unittest.TestCase):
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
     ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
     PRODUCT_COUNT_FROM_CART = (By.XPATH,'//*[@id="my_cart"]//span[@class="jewel jewel-danger"]')
+    PRODUCT_COUNT_FROM_CART2 = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
-    PRODUCT_COUNT_FROM_FAVORITES2 = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
+    INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
+    INPUT_EMAIL = (By.XPATH, '//*[@id="main-container"]/section[4]/div/div/div/form/div[1]/div[2]/input')
+    MESSAGE_SUBSCRIPTION = (By.XPATH, '//*[@class="mrg-sep-none alert"]')
+    SUBSCRIBE_BUTTON = (By.XPATH, '//*[@class="btn btn-danger btn-block js-recaptcha-button"]')
+    NO_NAME_ADDED = (By.XPATH, '//*[@class="form-group col-md-4 has-error"]//span[@class="help-block"]')
+    NO_EMAIL_ADDED  = (By.XPATH, '//*[@class="help-block"]')
+
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome()
@@ -91,9 +98,9 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         sleep(1)
-        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
+        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART2).text
         print(number_of_products_in_cart)
-        assert number_of_products_in_cart == 0 , "Error: The product was not removed from the cart"
+        assert number_of_products_in_cart == "0" , "Error: The product was not removed from the cart"
 
 
     def test_login_invalid_email(self):
@@ -125,6 +132,20 @@ class Test(unittest.TestCase):
         print(numbers_of_products_in_favorites)
         assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
 
+    def test_newsletter_subscription_without_email(self):
+        self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST10000")
+        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
+        subscription_without_success = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
+        print(subscription_without_success)
+        assert subscription_without_success == "Acest câmp este necesar", "Error: The e-mail was added corectly"
+
+    def test_newsletter_subscription_without_name_and_email(self):
+        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
+        subscription_without_success1 = self.chrome.find_element(*self.NO_NAME_ADDED).text
+        subscription_without_success2 = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
+        assert subscription_without_success1 == "Acest câmp este necesar", "Error: The name was added corectly"
+        assert subscription_without_success2 == "Acest câmp este necesar", "Error: The e-mail was added corectly"
+
 
 # Sa inlocuiesti sleep-urile cu explicit wait
 
@@ -154,46 +175,10 @@ class Test(unittest.TestCase):
     #             este_lista_sortata = False
     # assert este_lista_sortata == True
 
-    def test_choose_product_from_menu(self):
-        self.chrome.find_element(*self.CAT_LAP_TEL_TAB).click()
-        self.chrome.find_element(*self.TEL).click()
-        self.chrome.find_element(*self.IOS).click()
-        self.chrome.find_element(*self.LIVRATE_EMAG).click()
-        self.chrome.find_element(*self.SECTOR).click()
-        self.chrome.find_element(*self.IN_STOCK).click()
-        self.chrome.find_element(*self.RANGE_PRET).click()
-        self.chrome.find_element(*self.IPHONE_14).click()
-        self.chrome.find_element(*self.CLICK_TELEFON).click()
-        self.chrome.find_element(*self.ADD_TO_CART2).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        self.chrome.find_element(*self.CART).click()
-        self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        self.chrome.find_element(*self.HOME).click()
 
 
-    def test_resigilate(self):
-        self.chrome.find_element(*self.RESIGILATE).click()
-        self.chrome.find_element(*self.TELEFOANE_RESIGILATE).click()
-        self.chrome.find_element(*self.TELEFON_SAMSUNG).click()
-        self.chrome.find_element(*self.ADD_SAM_CART).click()
-        sleep(1)
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
-        self.chrome.find_element(*self.CART).click()
-        Element = self.chrome.find_element(By.XPATH, '//*[@class="line-item-title main-product-title"]')
-        Element_cautat = 'RESIGILAT'
-        if Element_cautat in Element.text:
-            print('Telefonul este de la resigilate')
-            self.chrome.find_element(*self.CONTINUE_FROM_CART).click()
-            self.chrome.find_element(*self.INSERT_EMAIL).send_keys("test_selenium12345@gmail.com")
-            self.chrome.find_element(*self.CONTINUA).click()
-            self.chrome.back()
-            self.chrome.find_element(*self.HOME).click()
-        else:
-            print('Telefonul nu este resigilat')
-            self.chrome.find_element(*self.DELETE_ELEMENT).click()
-            sleep(1)
-            self.chrome.find_element(*self.GOTOMAG).click()
+
+
 
 
 
