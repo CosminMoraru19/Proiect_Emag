@@ -51,6 +51,7 @@ class Test(unittest.TestCase):
     ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
     PRODUCT_COUNT_FROM_CART = (By.XPATH,'//*[@id="my_cart"]//span[@class="jewel jewel-danger"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
+    PRODUCT_COUNT_FROM_FAVORITES2 = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
         self.chrome = webdriver.Chrome()
@@ -89,6 +90,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        sleep(1)
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         print(number_of_products_in_cart)
         assert number_of_products_in_cart == 0 , "Error: The product was not removed from the cart"
@@ -110,7 +112,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.OPEN_FAV).click()
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
         print(numbers_of_products_in_favorites)
-        assert numbers_of_products_in_favorites == "1 produs", "Error: The product was not removed from the favorites"
+        assert numbers_of_products_in_favorites == "1 produs", "Error: The product was removed from the favorites"
 
     def test_delete_from_favourites(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
@@ -118,6 +120,11 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.ADD_TO_FAV2_FROM_LIST).click()
         self.chrome.find_element(*self.OPEN_FAV).click()
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
+        sleep(1)
+        numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
+        print(numbers_of_products_in_favorites)
+        assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
+
 
 # Sa inlocuiesti sleep-urile cu explicit wait
 
