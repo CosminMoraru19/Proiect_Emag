@@ -98,7 +98,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
         sleep(1)
-        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART2).text
+        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         print(number_of_products_in_cart)
         assert number_of_products_in_cart == "0" , "Error: The product was not removed from the cart"
 
@@ -132,11 +132,30 @@ class Test(unittest.TestCase):
         print(numbers_of_products_in_favorites)
         assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
 
+    def test_newsletter_subscription_good_credential(self):
+        self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST1000000")
+        self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test5000000@yahoo.com")
+        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
+        subscription_with_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
+        assert subscription_with_success =="Te-ai abonat cu succes la newsletter-ul eMAG.", "Error:You are already subscribed"
+
+    def test_newsletter_subscription_duplicate_credential(self):
+        self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST")
+        self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test@yahoo.com")
+        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
+        subscription_without_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
+        print(subscription_without_success)
+        assert subscription_without_success =="Esti deja abonat", "Error:the credentials are not subscribed."
+
+    def test_newletter_subscription_without_name(self):
+        self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
+        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
+        subscription_without_success = self.chrome.find_element(*self.NO_NAME_ADDED).text
+        assert subscription_without_success == "Acest câmp este necesar", "Error: The name was added corectly"
     def test_newsletter_subscription_without_email(self):
         self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST10000")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
-        print(subscription_without_success)
         assert subscription_without_success == "Acest câmp este necesar", "Error: The e-mail was added corectly"
 
     def test_newsletter_subscription_without_name_and_email(self):
@@ -145,6 +164,7 @@ class Test(unittest.TestCase):
         subscription_without_success2 = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
         assert subscription_without_success1 == "Acest câmp este necesar", "Error: The name was added corectly"
         assert subscription_without_success2 == "Acest câmp este necesar", "Error: The e-mail was added corectly"
+
 
 
 # Sa inlocuiesti sleep-urile cu explicit wait
