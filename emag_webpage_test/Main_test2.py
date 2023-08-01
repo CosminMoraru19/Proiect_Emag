@@ -76,7 +76,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
