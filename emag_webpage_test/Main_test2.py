@@ -187,7 +187,7 @@ class Test(unittest.TestCase):
             for j in range(i+1,len(price_list)):
                 if int(price_list[i]) > int(price_list[j]):
                     price_is_sorted = False
-        assert price_is_sorted == True, "Error, sorting did not work"
+        assert price_is_sorted == True, "Error: sorting did not work"
 
         # product_price = product_price.replace(" Lei","")
         # product_price = product_price.replace(",",'.')
