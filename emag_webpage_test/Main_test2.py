@@ -91,6 +91,7 @@ class Test(unittest.TestCase):
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         print(number_of_products_in_cart)
         assert number_of_products_in_cart == "1","Error: The product was not added to cart"
+        #good
 
 
     def test_delete_product_from_cart(self):
@@ -107,6 +108,7 @@ class Test(unittest.TestCase):
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         print(number_of_products_in_cart)
         assert number_of_products_in_cart == "0" , "Error: The product was not removed from the cart"
+    #not good - to ask
 
 
     def test_login_invalid_email(self):
@@ -114,7 +116,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345')
         self.chrome.find_element(*self.CONTINUA).click()
 
-        # pui un mail fara @ si verifici mesajul de eroare
+        # rulare pentru a vedea daca intra anti robotelul
 
 
     def test_add_to_favourites(self):
@@ -124,9 +126,8 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.ADD_TO_FAV1).click()
         self.chrome.find_element(*self.OPEN_FAV).click()
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
-        print(numbers_of_products_in_favorites)
         assert numbers_of_products_in_favorites == "1 produs", "Error: The product was removed from the favorites"
-
+    #good
     def test_delete_from_favourites(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.SEARCH_BUTTON).click()
@@ -135,9 +136,8 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.DELETE_ELEMENT_FAV).click()
         sleep(1)
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
-        print(numbers_of_products_in_favorites)
         assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
-
+        #good
     def test_newsletter_subscription_good_credential(self):
         self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST1000000")
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test5000000@yahoo.com")
@@ -145,24 +145,29 @@ class Test(unittest.TestCase):
         subscription_with_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
         assert subscription_with_success =="Te-ai abonat cu succes la newsletter-ul eMAG.", "Error:You are already subscribed"
 
+        #good
     def test_newsletter_subscription_duplicate_credential(self):
         self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST")
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
-        print(subscription_without_success)
         assert subscription_without_success =="Esti deja abonat", "Error:the credentials are not subscribed."
 
+        #good
     def test_newletter_subscription_without_name(self):
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.NO_NAME_ADDED).text
         assert subscription_without_success == "Acest câmp este necesar", "Error: The name was added corectly"
+        #good
+
     def test_newsletter_subscription_without_email(self):
         self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST10000")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
         assert subscription_without_success == "Acest câmp este necesar", "Error: The e-mail was added corectly"
+
+        #good
 
     def test_newsletter_subscription_without_name_and_email(self):
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
@@ -171,6 +176,7 @@ class Test(unittest.TestCase):
         assert subscription_without_success1 == "Acest câmp este necesar", "Error: The name was added corectly"
         assert subscription_without_success2 == "Acest câmp este necesar", "Error: The e-mail was added corectly"
 
+        #good
     def test_check_ascendent_order(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14")
         self.chrome.find_element(*self.SEARCH_BUTTON).click()
@@ -179,10 +185,20 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HONOR_BRAND).click()
         sleep(1)
-        product_price = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]').text
-        product_price = product_price.replace(" Lei","")
-        product_price = product_price.replace(",",'.')
-        print(product_price)
+        price_list = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]')
+        price_list = price_list.text.replace(" Lei","")
+        price_list = price_list.text.replace(",",'.')
+        print(price_list)
+        price_is_sorted = True
+        for i in range(len(price_list)-1):
+            for j in range(i+1,len(price_list)):
+                if int(price_list[i]>int(price_list[j])):
+                    price_is_sorted = False
+        assert price_is_sorted == True, "Error, sorting did not work"
+
+        # product_price = product_price.replace(" Lei","")
+        # product_price = product_price.replace(",",'.')
+        # print(product_price)
 
 
 
