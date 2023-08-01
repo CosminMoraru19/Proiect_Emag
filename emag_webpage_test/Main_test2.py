@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
     PRODUCT_COUNT_FROM_CART2 = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
-    INPUT_EMAIL = (By.XPATH, '//*[@placeholder="EMAIL"]')
+    INPUT_EMAIL = (By.XPATH, '//*[@placeholder="Email"]')
     MESSAGE_SUBSCRIPTION = (By.XPATH, '//*[@class="mrg-sep-none alert"]')
     SUBSCRIBE_BUTTON = (By.XPATH, '//*[@class="btn btn-danger btn-block js-recaptcha-button"]')
     NO_NAME_ADDED = (By.XPATH, '//*[@class="form-group col-md-4 has-error"]//span[@class="help-block"]')
