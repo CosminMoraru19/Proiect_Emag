@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     ADD_TO_CART = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
     CLOSE_SUGGESTION = (By.XPATH, '//*[@class = "em em-close gtm_6046yfqs"]')
     CART = (By.XPATH, '//*[@class="jewel jewel-danger"]')
-    CONTINUE_FROM_CART = (By.XPATH, '//*[@class = " btn btn-emag btn-secondary font-size-md btn-block btn-lg gtm_sn11312018"]')
+    # CONTINUE_FROM_CART = (By.XPATH, '//*[@class = " btn btn-emag btn-secondary font-size-md btn-block btn-lg gtm_sn11312018"]')
     INSERT_EMAIL = (By.XPATH, '//*[@name = "user_login[email]"]')
     CONTINUA = (By.XPATH, '//*[@id = "user_login_continue"]')
     DELETE_ELEMENT = (By.XPATH, '//*[@id="cart-products"]/div/div[1]/div[4]/div/div/div[2]/div[2]/div[2]/button')
@@ -20,44 +20,49 @@ class Test(unittest.TestCase):
     ADD_TO_FAV2_FROM_LIST = (By.XPATH, '//*[@data-productid="53948240"]')
     OPEN_FAV = (By.XPATH, '//*[@id="my_wishlist"]')
     DELETE_ELEMENT_FAV = (By.XPATH, '//*[@class="hidden-sm hidden-xs gtm_9p2y1a"]')
-    CAT_LAP_TEL_TAB = (By.XPATH, '//*[@data-modified = "1681819469"]')
-    TEL = (By.XPATH, '//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
-    IOS = (By.XPATH, '//*[@href="/telefoane-mobile/brand/apple/c?ref=subcat_0_prod-type_0"]')
-    LIVRATE_EMAG = (By.XPATH, '//*[@data-option-id="30"]')
-    SECTOR = (By.XPATH, '//*[@data-option-id= "11"]')
-    IN_STOCK = (By.XPATH, '//*[@data-option-id="stock"]')
-    RANGE_PRET = (By.XPATH, '//*[@data-option-id="4000-5000"]')
-    IPHONE_14 = (By.XPATH, '//*[@id="js-filter-9396-collapse"]/div/a[2]')
-    CLICK_TELEFON = (By.XPATH,'//*[@alt="Telefon mobil Apple iPhone 14, 128GB, 5G, Midnight"]')
-    ADD_TO_CART2 = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
-    CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
+    # CAT_LAP_TEL_TAB = (By.XPATH, '//*[@data-modified = "1681819469"]')
+    # TEL = (By.XPATH, '//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
+    # IOS = (By.XPATH, '//*[@href="/telefoane-mobile/brand/apple/c?ref=subcat_0_prod-type_0"]')
+    # LIVRATE_EMAG = (By.XPATH, '//*[@data-option-id="30"]')
+    # SECTOR = (By.XPATH, '//*[@data-option-id= "11"]')
+    # IN_STOCK = (By.XPATH, '//*[@data-option-id="stock"]')
+    # RANGE_PRET = (By.XPATH, '//*[@data-option-id="4000-5000"]')
+    # IPHONE_14 = (By.XPATH, '//*[@id="js-filter-9396-collapse"]/div/a[2]')
+    # CLICK_TELEFON = (By.XPATH,'//*[@alt="Telefon mobil Apple iPhone 14, 128GB, 5G, Midnight"]')
+    # ADD_TO_CART2 = (By.XPATH, '//*[@class="btn btn-xl btn-primary btn-emag btn-block main-button gtm_680klw yeahIWantThisProduct"]')
+    # CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
     CLOSE_COOKIE = (By.XPATH, '//*[@class = "btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     CLOSE_INTRA_IN_CONT = (By.XPATH, '//*[@class = "js-dismiss-login-notice-btn dismiss-btn btn btn-link pad-sep-none pad-hrz-none"]')
     RESIGILATE = (By.XPATH, '//*[@title="Resigilate"]')
-    TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
-    TELEFON_SAMSUNG = (By.XPATH,'//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
-    ADD_SAM_CART = (By.XPATH,'//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
-    GOTOMAG = (By.XPATH,'//*[@class="mrg-btm-none"]')
-    TELEFOANE_MOBILE = (By.XPATH, '//*[@href="/telefoane-mobile/c?tree_ref=13&ref=cat_tree_93"]')
-    PRIMUL_TELEFOM = (By.XPATH,'//*[@alt="Telefon mobil Samsung Galaxy A14, Dual SIM, 4GB RAM, 64GB, 4G, Light Green"]')
-    APPLE = (By.XPATH, '//*[@data-name="Apple"]')
-    OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
-    TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
-    BATERII = (By.XPATH,'//*[@href="/power-bank-telefoane/c?tree_ref=0&ref=cat_tree_2411"]')
-    BATERIE = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
+    # TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
+    # TELEFON_SAMSUNG = (By.XPATH,'//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
+    # ADD_SAM_CART = (By.XPATH,'//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
+    # GOTOMAG = (By.XPATH,'//*[@class="mrg-btm-none"]')
+    # TELEFOANE_MOBILE = (By.XPATH, '//*[@href="/telefoane-mobile/c?tree_ref=13&ref=cat_tree_93"]')
+    # PRIMUL_TELEFOM = (By.XPATH,'//*[@alt="Telefon mobil Samsung Galaxy A14, Dual SIM, 4GB RAM, 64GB, 4G, Light Green"]')
+    # APPLE = (By.XPATH, '//*[@data-name="Apple"]')
+    # OPEN_APPLE_PRODUCT = (By.XPATH,'//*[@src="https://s13emagst.akamaized.net/products/48592/48591225/images/res_88dbb52d3570c8fd119fe82ad975b680.jpg?width=720&height=720&hash=049B4E257BDEB2E40207DABE3041A31D"]')
+    # TELEFOANE_ACCESORII = (By.XPATH,'//*[@href="/telefoane-mobile-accesorii/sd?tree_ref=12&ref=dep_cat_tree_12"]')
+    # BATERII = (By.XPATH,'//*[@href="/power-bank-telefoane/c?tree_ref=0&ref=cat_tree_2411"]')
+    # BATERIE = (By.XPATH,'//*[@id="card_grid"]/div[1]/div/div/div[3]/a/div[1]/img')
     CONTUL_MEU = (By.XPATH, '//*[@id="my_account"]')
-    OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
+    # OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
-    ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
+    # ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
     PRODUCT_COUNT_FROM_CART = (By.XPATH,'//*[@id="my_cart"]//span[@class="jewel jewel-danger"]')
     PRODUCT_COUNT_FROM_CART2 = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
-    INPUT_EMAIL = (By.XPATH, '//*[@id="main-container"]/section[4]/div/div/div/form/div[1]/div[2]/input')
+    INPUT_EMAIL = (By.XPATH, '//*[@placeholder="EMAIL"]')
     MESSAGE_SUBSCRIPTION = (By.XPATH, '//*[@class="mrg-sep-none alert"]')
     SUBSCRIBE_BUTTON = (By.XPATH, '//*[@class="btn btn-danger btn-block js-recaptcha-button"]')
     NO_NAME_ADDED = (By.XPATH, '//*[@class="form-group col-md-4 has-error"]//span[@class="help-block"]')
     NO_EMAIL_ADDED  = (By.XPATH, '//*[@class="help-block"]')
+    HONOR_BRAND = (By.XPATH,'//*[@data-name="Honor"]')
+    ORDER_BY = (By.XPATH,'//*[@class="btn btn-sm btn-alt sort-control-btn gtm_ejaugtrtnc"]')
+    TYPE_OF_ORDER =(By.XPATH,'//*[@data-sort-dir="asc"]')
+
+
 
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
@@ -71,7 +76,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5)
+        sleep(5000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -97,6 +102,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
+        self.chrome.find_element(*self.HOME).click()
         sleep(1)
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         print(number_of_products_in_cart)
@@ -164,6 +170,22 @@ class Test(unittest.TestCase):
         subscription_without_success2 = self.chrome.find_element(*self.NO_EMAIL_ADDED).text
         assert subscription_without_success1 == "Acest câmp este necesar", "Error: The name was added corectly"
         assert subscription_without_success2 == "Acest câmp este necesar", "Error: The e-mail was added corectly"
+
+    def test_check_ascendent_order(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
+        self.chrome.find_element(*self.ORDER_BY).click()
+        self.chrome.find_element(*self.TYPE_OF_ORDER).click()
+        sleep(1)
+        self.chrome.find_element(*self.HONOR_BRAND).click()
+        sleep(1)
+        product_price = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]').text
+        product_price = product_price.replace(" Lei","")
+        product_price = product_price.replace(",",'.')
+        print(product_price)
+
+
+
 
 
 
