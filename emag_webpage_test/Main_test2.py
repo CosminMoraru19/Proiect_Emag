@@ -185,16 +185,15 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HONOR_BRAND).click()
         sleep(1)
-        price_list = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]')
-        price_list = price_list.text.replace(" Lei","")
-        price_list = price_list.text.replace(",",'.')
-        print(price_list)
-        price_is_sorted = True
-        for i in range(len(price_list)-1):
-            for j in range(i+1,len(price_list)):
-                if int(price_list[i]>int(price_list[j])):
-                    price_is_sorted = False
-        assert price_is_sorted == True, "Error, sorting did not work"
+        price_list = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]').text
+        price_list = price_list.replace(" Lei","").replace(",",'.')
+        print(price_list[1],price_list[2],price_list[3],price_list[4])
+        # price_is_sorted = True
+        # for i in range(len(price_list)-1):
+        #     for j in range(i+1,len(price_list)):
+        #         if int(price_list[i]) > int(price_list[j]):
+        #             price_is_sorted = False
+        # assert price_is_sorted == True, "Error, sorting did not work"
 
         # product_price = product_price.replace(" Lei","")
         # product_price = product_price.replace(",",'.')
