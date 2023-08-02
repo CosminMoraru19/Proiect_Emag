@@ -1,8 +1,12 @@
 import unittest
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import random
+
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 class Test(unittest.TestCase):
     SEARCH_BAR =(By.ID, 'searchboxTrigger')
@@ -39,6 +43,9 @@ class Test(unittest.TestCase):
     VALIDATE_VOUCHER = (By.XPATH,'//*[@class="em em-right"]')
     STATUS_VOUCHER = (By.XPATH,'//*[@class="vouchers-section"]//div[@class="voucher-error js-voucher-error"]')
 
+    def __init__(self, methodName: str = ...):
+        super().__init__(methodName)
+        self.driver = None
 
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
@@ -59,8 +66,10 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
         self.chrome.find_element(*self.SEARCH_BUTTON).click()
         self.chrome.find_element(*self.PRODUCT).click()
-        self.chrome.find_element(*self.ADD_TO_CART).click()
-        sleep(1)
+        # self.chrome.find_element(*self.ADD_TO_CART).click()
+        # sleep(1)
+        add_to_cart = WebDriverWait(self.chrome, 10).until(EC.element_to_be_clickable(*self.ADD_TO_CART))
+        add_to_cart.click()
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
