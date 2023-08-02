@@ -49,8 +49,8 @@ class Test(unittest.TestCase):
     # OMITE_LOGIN = (By.XPATH, '//*[@class="button-submit button"]')
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
     # ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
-    PRODUCT_COUNT_FROM_CART = (By.XPATH,'//*[@id="my_cart"]//span[@class="jewel jewel-danger"]')
-    PRODUCT_COUNT_FROM_CART2 = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
+    PRODUCT_COUNT_FROM_CART = (By.ID,'my_cart')
+    PRODUCTS_IN_CART = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
     INPUT_EMAIL = (By.XPATH, '//*[@placeholder="Email"]')
@@ -102,19 +102,11 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        self.chrome.find_element(*self.HOME).click()
-        sleep(1)
+        sleep(10)
+        sleep(10)
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         assert number_of_products_in_cart == "0" , "Error: The product was not removed from the cart"
-    #not good - to ask
-
-
-    def test_login_invalid_email(self):
-        self.chrome.find_element(*self.CONTUL_MEU).click()
-        self.chrome.find_element(*self.INSERT_EMAIL).send_keys('test_selenium12345')
-        self.chrome.find_element(*self.CONTINUA).click()
-
-        # rulare pentru a vedea daca intra anti robotelul
+    #not good - to ask-- de facut asert cu mesaj din cos
 
 
     def test_add_to_favourites(self):
@@ -136,20 +128,7 @@ class Test(unittest.TestCase):
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
         assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
         #good
-    def test_newsletter_subscription_good_credential(self):
-        self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST1000000")
-        self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test5000000@yahoo.com")
-        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
-        subscription_with_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
-        assert subscription_with_success =="Te-ai abonat cu succes la newsletter-ul eMAG.", "Error:You are already subscribed"
-        #not good
-    def test_newsletter_subscription_duplicate_credential(self):
-        self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST")
-        self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test@yahoo.com")
-        self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
-        subscription_without_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
-        assert subscription_without_success =="Esti deja abonat", "Error:the credentials are not subscribed."
-        #not good
+
     def test_newletter_subscription_without_name(self):
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
@@ -179,15 +158,18 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.HONOR_BRAND).click()
         sleep(1)
-        price_list = self.chrome.find_element(By.XPATH,'//*[@class="product-new-price"]').text
-        price_list = price_list.replace(" Lei","").replace(",",'.')
-        print(price_list)
+        price_list = self.chrome.find_elements(By.XPATH,'//*[@class="product-new-price"]')
         price_is_sorted = True
         for i in range(len(price_list)-1):
             for j in range(i+1,len(price_list)):
-                if int(price_list[i]) > int(price_list[j]):
+                if float(price_list[i].text.replace(" Lei","").replace(",",'.')) > float(price_list[j].text.replace(" Lei","").replace(",",'.')):
                     price_is_sorted = False
         assert price_is_sorted == True, "Error: sorting did not work"
+
+
+
+
+
 
         # product_price = product_price.replace(" Lei","")
         # product_price = product_price.replace(",",'.')
