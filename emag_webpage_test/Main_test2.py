@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
     RESEALED = (By.XPATH, '//*[@title="Resigilate"]')
     RESEALED_PHONE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
     ADD_RESEALED_TO_CART = (By.XPATH, '//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
-    PRODUCT_COUNT_FROM_CART = (By.ID,'my_cart')
+    PRODUCT_COUNT_FROM_CART = (By.XPATH, '//*[@id="my_cart"]/span[@class="jewel jewel-danger"]')
     PRODUCTS_IN_CART = (By.XPATH, '//*[@class="mrg-btm-none"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5)
+        sleep(5000)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -63,7 +63,6 @@ class Test(unittest.TestCase):
         sleep(1)
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
-        self.chrome.find_element(*self.HOME).click()
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         assert number_of_products_in_cart == "1","Error: The product was not added to cart"
         #good
@@ -174,6 +173,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.HONOR_BRAND).click()
         sleep(1)
         price_list = self.chrome.find_elements(By.XPATH,'//*[@class="product-new-price"]')
+        print(price_list)
         price_is_sorted = True
         for i in range(len(price_list)-1):
             for j in range(i+1,len(price_list)):
