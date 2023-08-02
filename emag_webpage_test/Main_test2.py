@@ -142,14 +142,14 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_with_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
         assert subscription_with_success =="Te-ai abonat cu succes la newsletter-ul eMAG.", "Error:You are already subscribed"
-        #good
+        #not good
     def test_newsletter_subscription_duplicate_credential(self):
         self.chrome.find_element(*self.INPUT_NAME).send_keys("TEST")
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.MESSAGE_SUBSCRIPTION).text
         assert subscription_without_success =="Esti deja abonat", "Error:the credentials are not subscribed."
-        #good
+        #not good
     def test_newletter_subscription_without_name(self):
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
