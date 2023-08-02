@@ -173,7 +173,6 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.HONOR_BRAND).click()
         sleep(2)
         price_list = self.chrome.find_elements(By.XPATH,'//*[@class="product-new-price"]')
-        print(price_list)
         price_is_sorted = True
         for i in range(len(price_list)-1):
             for j in range(i+1,len(price_list)):
