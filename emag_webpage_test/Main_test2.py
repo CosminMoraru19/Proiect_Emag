@@ -2,6 +2,7 @@ import unittest
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import random
 
 class Test(unittest.TestCase):
     SEARCH_BAR =(By.ID, 'searchboxTrigger')
@@ -50,7 +51,7 @@ class Test(unittest.TestCase):
     GIFT_CLOSE = (By.XPATH,'//*[@class="close"]')
     # ADD_TO_CART3 = (By.XPATH,'//*[@data-pnk="D1PGV6MBM"]')
     PRODUCT_COUNT_FROM_CART = (By.ID,'my_cart')
-    PRODUCTS_IN_CART = (By.XPATH, '//*[@class="em em-cart2 navbar-icon"]')
+    PRODUCTS_IN_CART = (By.XPATH, '//*[@class="mrg-btm-none"]')
     PRODUCT_COUNT_FROM_FAVORITES = (By.XPATH, '//*[@class="products-number hidden-xs js-products-count"]')
     INPUT_NAME = (By.XPATH, '//*[@placeholder="Nume"]')
     INPUT_EMAIL = (By.XPATH, '//*[@placeholder="Email"]')
@@ -62,7 +63,9 @@ class Test(unittest.TestCase):
     ORDER_BY = (By.XPATH,'//*[@class="btn btn-sm btn-alt sort-control-btn gtm_ejaugtrtnc"]')
     TYPE_OF_ORDER =(By.XPATH,'//*[@data-sort-dir="asc"]')
     CHOSE_RANDOM_PHONE = (By.XPATH,'//*[@class="card-info"]//a[@aria-label="Product details"]')
-
+    VOUCHER_FIELD = (By.XPATH,'//*[@class="form-control js-voucher-code"]')
+    VALIDATE_VOUCHER = (By.XPATH,'//*[@class="em em-right"]')
+    STATUS_VOUCHER = (By.XPATH,'//*[@class="vouchers-section"]//div[@class="voucher-error js-voucher-error"]')
 
 
     def setUp(self):
@@ -103,11 +106,38 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         self.chrome.find_element(*self.DELETE_ELEMENT).click()
-        sleep(10)
-        sleep(10)
-        number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
-        assert number_of_products_in_cart == "0" , "Error: The product was not removed from the cart"
-    #not good - to ask-- de facut asert cu mesaj din cos
+        sleep(1)
+        products_in_cart = self.chrome.find_element(*self.PRODUCTS_IN_CART).text
+        assert "Cosul tau de cumparaturi nu contine produse. " in products_in_cart, "Error: The product was not removed from the cart"
+
+    def test_use_invalid_voucher_code_in_cart(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
+        self.chrome.find_element(*self.PRODUCT).click()
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        sample_str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        generated_string = ''.join(random.choices(sample_str, k=10))
+        self.chrome.find_element(*self.VOUCHER_FIELD).send_keys(generated_string)
+        self.chrome.find_element(*self.VALIDATE_VOUCHER).click()
+        sleep(1)
+        status_voucher = self.chrome.find_element(*self.STATUS_VOUCHER).text
+        assert "Codul de voucher / card cadou este incorect" in status_voucher, "Error: Voucher is valid"
+
+    def test_without_voucher_code_in_cart(self):
+        self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
+        self.chrome.find_element(*self.SEARCH_BUTTON).click()
+        self.chrome.find_element(*self.PRODUCT).click()
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        self.chrome.find_element(*self.VALIDATE_VOUCHER).click()
+        sleep(1)
+        status_voucher = self.chrome.find_element(*self.STATUS_VOUCHER).text
+        assert "Te rugam sa completezi codul voucherului" in status_voucher, "Error: Voucher was typed."
 
 
     def test_add_to_favourites(self):
@@ -118,7 +148,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.OPEN_FAV).click()
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
         assert numbers_of_products_in_favorites == "1 produs", "Error: The product was removed from the favorites"
-    #good
+
     def test_delete_from_favourites(self):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys(" Husa Iphone 14 Pro")
         self.chrome.find_element(*self.SEARCH_BUTTON).click()
@@ -182,43 +212,6 @@ class Test(unittest.TestCase):
 
 
 
-
-        # product_price = product_price.replace(" Lei","")
-        # product_price = product_price.replace(",",'.')
-        # print(product_price)
-
-
-
-
-
-
-# Sa inlocuiesti sleep-urile cu explicit wait
-
-
-    # abonare la newsletter
-    # - nume si email valid
-    # - nume empty, mail valid
-    # - nume empty, mail invalid
-    # - nume valid, mail invalid
-
-    # cautare produs husa iphone 15
-    # filtrare dupa brand honor
-    # sortare dupa pret crescator
-    # salvare elemente in lista si verificare corectitudine sortare
-
-    # salvezi xpath pret produs: self.chrome.find_element(By.XPATH,'//p[@class="product-new-price"]').text
-    #  -> 7 81 Lei
-    # -> aplici metoda replace pe textul care ti-a fost returnat pentru a extrage doar valoarea care te intereseaza
-    # exemplu: inlocuiesti " Lei" cu "" apoi inlocuiesti " " cu "." -> 7.81
-    # cu un for imbricat  parcurgi toate elementele
-    # //div[@class="listing-sorting-dropdown"]
-    # //div[@class="sort-control-btn-dropdown hidden-xs"]
-    # este_lista_sortata = True
-    # for i in range(len(pret_produse)-1):
-    #     for j in range(i+1,len(pret_produse)):
-    #         if pret_produse[i]>pret_produse[j]:
-    #             este_lista_sortata = False
-    # assert este_lista_sortata == True
 
 
 
