@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
         sleep(1)
 
     def tearDown(self):
-        sleep(5000)
+        sleep(5)
         self.chrome.quit()
 
     def test_add_to_cart(self):
@@ -171,7 +171,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.TYPE_OF_ORDER).click()
         sleep(1)
         self.chrome.find_element(*self.HONOR_BRAND).click()
-        sleep(1)
+        sleep(2)
         price_list = self.chrome.find_elements(By.XPATH,'//*[@class="product-new-price"]')
         print(price_list)
         price_is_sorted = True
