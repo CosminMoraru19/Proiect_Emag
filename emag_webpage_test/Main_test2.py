@@ -143,7 +143,7 @@ class Test(unittest.TestCase):
         resealed_status = self.chrome.find_element(By.XPATH, '//*[@class="line-item-title main-product-title"]').text
         assert "RESIGILAT: " in resealed_status, "Error : The product is not released."
 
-    def test_newletter_subscription_without_name(self):
+    def test_newsletter_subscription_without_name(self):
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
         self.chrome.find_element(*self.SUBSCRIBE_BUTTON).click()
         subscription_without_success = self.chrome.find_element(*self.NO_NAME_ADDED).text
