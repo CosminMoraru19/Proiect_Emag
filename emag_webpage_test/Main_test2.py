@@ -33,10 +33,10 @@ class Test(unittest.TestCase):
     # CLOSE_SUGGESTION3 = (By.XPATH, '//*[@class="em em-close gtm_6046yfqs"]')
     CLOSE_COOKIE = (By.XPATH, '//*[@class = "btn btn-primary js-accept gtm_h76e8zjgoo btn-block"]')
     CLOSE_INTRA_IN_CONT = (By.XPATH, '//*[@class = "js-dismiss-login-notice-btn dismiss-btn btn btn-link pad-sep-none pad-hrz-none"]')
-    RESIGILATE = (By.XPATH, '//*[@title="Resigilate"]')
-    # TELEFOANE_RESIGILATE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
-    # TELEFON_SAMSUNG = (By.XPATH,'//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
-    # ADD_SAM_CART = (By.XPATH,'//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
+    RESEALED = (By.XPATH, '//*[@title="Resigilate"]')
+    RESEALED_PHONE = (By.XPATH, '//*[@href="/cmp/campanie-produse-resigilate-ongoing/telefoane-gadgeturi.php?ref=section_CMP-426208_8323"]')
+    SAMSUNG_PHONE = (By.XPATH, '//*[@href="/telefon-mobil-samsung-galaxy-s22-dual-sim-128gb-8gb-ram-5g-phantom-black-sm-s901bzkdeue/pd/DTZ01FMBM/?ref=prod_CMP-426208_8323_92538#used-products"]')
+    ADD_RESEALED_TO_CART = (By.XPATH, '//*[@class="btn btn-default btn-sm btn-block bundle-product-buy-button po-text-small gtm_nhdl6r"]')
     # GOTOMAG = (By.XPATH,'//*[@class="mrg-btm-none"]')
     # TELEFOANE_MOBILE = (By.XPATH, '//*[@href="/telefoane-mobile/c?tree_ref=13&ref=cat_tree_93"]')
     # PRIMUL_TELEFOM = (By.XPATH,'//*[@alt="Telefon mobil Samsung Galaxy A14, Dual SIM, 4GB RAM, 64GB, 4G, Light Green"]')
@@ -61,6 +61,7 @@ class Test(unittest.TestCase):
     HONOR_BRAND = (By.XPATH,'//*[@data-name="Honor"]')
     ORDER_BY = (By.XPATH,'//*[@class="btn btn-sm btn-alt sort-control-btn gtm_ejaugtrtnc"]')
     TYPE_OF_ORDER =(By.XPATH,'//*[@data-sort-dir="asc"]')
+    CHOSE_RANDOM_PHONE = (By.XPATH,'//*[@class="card-info"]//a[@aria-label="Product details"]')
 
 
 
@@ -128,6 +129,17 @@ class Test(unittest.TestCase):
         numbers_of_products_in_favorites = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_FAVORITES).text
         assert numbers_of_products_in_favorites == "0 produse", "Error: The product was not removed from the favorites"
         #good
+
+    def test_check_if_product_is_resealed(self):
+        self.chrome.find_element(*self.RESEALED).click()
+        self.chrome.find_element(*self.RESEALED_PHONE).click()
+        self.chrome.find_element(*self.CHOSE_RANDOM_PHONE).click()
+        self.chrome.find_element(*self.ADD_RESEALED_TO_CART).click()
+        sleep(1)
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CART).click()
+        resealed_status = self.chrome.find_element(By.XPATH, '//*[@class="line-item-title main-product-title"]').text
+        assert "RESIGILAT: " in resealed_status, "Error : The product is not released."
 
     def test_newletter_subscription_without_name(self):
         self.chrome.find_element(*self.INPUT_EMAIL).send_keys("test1234@yahoo.com")
