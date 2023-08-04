@@ -43,9 +43,9 @@ class Test(unittest.TestCase):
     VALIDATE_VOUCHER = (By.XPATH,'//*[@class="em em-right"]')
     STATUS_VOUCHER = (By.XPATH,'//*[@class="vouchers-section"]//div[@class="voucher-error js-voucher-error"]')
 
-    def __init__(self, methodName: str = ...):
-        super().__init__(methodName)
-        self.driver = None
+    # def __init__(self, methodName: str = ...):
+    #     super().__init__(methodName)
+    #     self.driver = None
 
     def setUp(self):
         # s = Service(ChromeDriverManager().install())
@@ -68,7 +68,7 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.PRODUCT).click()
         self.chrome.find_element(*self.ADD_TO_CART).click()
         sleep(1)
-         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         assert number_of_products_in_cart == "1","Error: The product was not added to cart"
