@@ -66,11 +66,9 @@ class Test(unittest.TestCase):
         self.chrome.find_element(*self.SEARCH_BAR).send_keys("Husa Iphone 14 Pro")
         self.chrome.find_element(*self.SEARCH_BUTTON).click()
         self.chrome.find_element(*self.PRODUCT).click()
-        # self.chrome.find_element(*self.ADD_TO_CART).click()
-        # sleep(1)
-        add_to_cart = WebDriverWait(self.chrome, 10).until(EC.element_to_be_clickable(*self.ADD_TO_CART))
-        add_to_cart.click()
-        self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
+        self.chrome.find_element(*self.ADD_TO_CART).click()
+        sleep(1)
+         self.chrome.find_element(*self.CLOSE_SUGGESTION).click()
         self.chrome.find_element(*self.CART).click()
         number_of_products_in_cart = self.chrome.find_element(*self.PRODUCT_COUNT_FROM_CART).text
         assert number_of_products_in_cart == "1","Error: The product was not added to cart"
