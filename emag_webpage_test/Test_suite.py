@@ -9,12 +9,11 @@ class TestSuite(unittest.TestCase):
 
 		def test_suite(self):
 				teste_de_rulat = unittest.TestSuite()
-				teste_de_rulat.addTests([#unittest.defaultTestLoader.loadTestsFromTestCase(Elefant_Login),
-																 unittest.defaultTestLoader.loadTestsFromTestCase(Test)])
+				teste_de_rulat.addTests([unittest.defaultTestLoader.loadTestsFromTestCase(Test)])
 
 				runner = HtmlTestRunner.HTMLTestRunner\
 								(
-				combine_reports=True, # daca rulam mai multe clase, ne va genera raport
+				combine_reports=True,
 				report_title = "Test execution report",
 				report_name = "Test results"
 		)
